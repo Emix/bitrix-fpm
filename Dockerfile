@@ -1,5 +1,5 @@
 FROM selim13/bitrix-fpm
-RUN \
+RUN rm /usr/local/etc/php/conf.d/memcache.ini && \
     apt-get update && \
     apt-get install libldap2-dev -y && \
     rm -rf /var/lib/apt/lists/* && \
@@ -13,8 +13,7 @@ RUN pecl install apcu \
     && docker-php-ext-enable apcu --ini-name 10-docker-php-ext-apcu.ini \
 && docker-php-ext-enable apc --ini-name 20-docker-php-ext-apc.ini
 
-RUN usermod -u 1000 www-data && \
-rm /usr/local/etc/conf.d/memcache.ini
+RUN usermod -u 1000 www-data
 
 # Clean repository
 RUN apt-get clean \
